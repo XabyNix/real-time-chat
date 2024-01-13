@@ -29,7 +29,7 @@ const Chat = ({ data }: prop) => {
 	}, []);
 
 	return (
-		<div className=" flex flex-col gap-2 overflow-y-scroll max-h-[500px]">
+		<div className="flex flex-col flex-1 gap-2 overflow-y-scroll">
 			{messages.map(({ message, id }, key) => (
 				<Message variant="send" key={key}>
 					{message}
