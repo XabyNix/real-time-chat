@@ -1,22 +1,20 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 
-type props = {
-	variant: "send" | "recived";
+const Message = ({
+	date,
+	children,
+	className,
+}: {
+	date: Date;
 	children: string;
-};
-const Message = ({ variant, children }: props) => {
-	if (variant === "send") {
-		return <MessageBase className=" self-end">{children}</MessageBase>;
-	} else {
-		return <MessageBase>{children}</MessageBase>;
-	}
-};
-
-export default Message;
-
-const MessageBase = ({ className, children }: { className?: string; children: string }) => (
-	<div className={cn("border-1 w-max p-2 rounded-md shadow-md", className)}>
-		<p>{children}</p>
+	className?: string;
+}) => (
+	<div className={cn("border-1 w-max p-2 rounded-md shadow-md bg-white", className)}>
+		<p className="max-w-md break-words">{children}</p>
+		<span className="font-light text-xs">
+			{date.toLocaleString("it-IT", { hour: "2-digit", minute: "2-digit" })}
+		</span>
 	</div>
 );
+export default Message;

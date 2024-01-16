@@ -1,19 +1,19 @@
-import getMessages from "@/app/actions/getMessages";
 import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import Chat from "../../../components/conversation/Chat";
-import ChatBottomBar from "../../../components/conversation/ChatBottomBar";
+import { getServerSession } from "next-auth";
+import getMessages from "@/app/actions/getMessages";
+import Messages from "../../../components/conversation/Messages";
+import MessagesBottomSection from "@/app/chat/components/conversation/MessagesBottomSection";
 
-const page = async () => {
+const page = async ({ params }: { params: { id: string } }) => {
 	const session = await getServerSession(authOptions);
 	if (!session) redirect("/login");
 
-	const data = await getMessages();
+	const data = await getMessages(params.id);
 	return (
-		<div className="flex flex-col flex-1">
-			<Chat data={data} />
-			<ChatBottomBar />
+		<div className="flex flex-col flex-1 bg-slate-100">
+			<Messages data={data} conversationId={params.id} />
+			<MessagesBottomSection conversationId={params.id} />
 		</div>
 	);
 };

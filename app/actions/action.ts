@@ -4,37 +4,23 @@ import prisma from "@/lib/db";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import bcrypt from "bcrypt";
+import { pusherServer } from "@/lib/pusher";
 
-export const postMessage = async (formData: FormData) => {
+export const sendMessage = async (formData: FormData, id: string) => {
 	"use server";
-
-	const Pusher = require("pusher");
+	const message = formData.get("message") as string;
 
 	const session = await getServerSession(authOptions);
+
 	const data = await prisma.message.create({
 		data: {
-			message: formData.get("message") as string,
-			email: session?.user?.email as string,
-			conversationId: "",
-		},
-		include: {
-			user: {
-				select: {
-					name: true,
-					image: true,
-				},
-			},
+			message: message,
+			senderEmail: session?.user?.email as string,
+			conversationId: id,
 		},
 	});
 
-	const pusher = new Pusher({
-		appId: process.env.PUSHER_APP_ID as string,
-		key: process.env.NEXT_PUBLIC_PUSHER_KEY as string,
-		secret: process.env.PUSHER_SECRET as string,
-		cluster: process.env.NEXT_PUBLIC_PUSHER_CLOUSTER as string,
-		useTLS: true,
-	});
-	pusher.trigger("orazio", "mess", data);
+	pusherServer.trigger(id, "message", data);
 };
 
 export const registerUser = async (formData: FormData) => {

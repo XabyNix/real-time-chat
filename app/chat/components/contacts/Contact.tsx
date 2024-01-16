@@ -3,24 +3,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { User } from "@prisma/client";
 
-const Contact = ({ data }: { data: User }) => {
-	const { image, name, email } = data;
-
+const Contact = ({ id, user }: { id: string; user: User }) => {
 	return (
-		<div className="flex items-center gap-3 transition-all p-2 rounded-lg cursor-pointer">
-			<Image
-				src={image || "/test.jpg"}
-				alt="profile image"
-				width={50}
-				height={50}
-				className="aspect-square"
-			/>
-
-			<div>
-				<h3>{name}</h3>
-				<h4 className="text-xs">{email}</h4>
+		<Link href={`/chat/conversation/${id}`}>
+			<div className="flex items-center lg:hover:bg-slate-100 gap-2 transition-all">
+				<Image
+					className="aspect-square rounded-full p-1"
+					src={user?.image || "/test.jpg"}
+					alt=""
+					width={50}
+					height={50}
+				/>
+				<h3 className="font-medium">{user?.name}</h3>
 			</div>
-		</div>
+		</Link>
 	);
 };
 

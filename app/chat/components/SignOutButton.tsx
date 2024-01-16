@@ -7,6 +7,7 @@ import React from "react";
 const SignOutButton = () => {
 	return (
 		<Button
+			radius="sm"
 			color="danger"
 			onClick={() => {
 				signOut({ callbackUrl: "/" });

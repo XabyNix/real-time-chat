@@ -4,13 +4,15 @@ import { Button, Input } from "@nextui-org/react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import React, { FormEvent } from "react";
+import bcrypt from "bcrypt";
 
 const page = () => {
-	const submitHandler = (data: FormEvent<HTMLFormElement>) => {
-		const formData = new FormData(data.target as HTMLFormElement);
+	const submitHandler = (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		const formData = new FormData(event.target as HTMLFormElement);
 		const email = formData.get("email");
 		const password = formData.get("password");
-
+		console.log(password);
 		signIn("credentials", {
 			email: email,
 			password: password,

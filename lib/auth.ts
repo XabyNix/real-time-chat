@@ -1,9 +1,11 @@
-import { PrismaAdapter } from "@auth/prisma-adapter";
+import prisma from "./db";
+
+import { compare } from "bcrypt";
 import { AuthOptions } from "next-auth";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import prisma from "./db";
 
 export const authOptions: AuthOptions = {
 	adapter: PrismaAdapter(prisma),
@@ -23,18 +25,19 @@ export const authOptions: AuthOptions = {
 				password: { label: "Password", type: "password" },
 			},
 			async authorize(credentials) {
-				if (!credentials?.email || !credentials.password) {
-					return null;
-				}
-				const user = prisma.user.findUnique({
+				if (!credentials?.email || !credentials?.password) return null;
+
+				const user = await prisma.user.findUnique({
 					where: {
 						email: credentials.email,
 					},
 				});
-				if (!user) {
-					return null;
-				}
-				return user;
+
+				if (!user) return null;
+
+				const isValid = user.password && (await compare(credentials.password, user.password));
+				console.log(isValid);
+				return isValid ? user : null;
 			},
 		}),
 	],

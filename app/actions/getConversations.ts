@@ -5,7 +5,7 @@ const getConversations = async () => {
 	"use server";
 	const session = await getServerSession(authOptions);
 	try {
-		const data = await prisma.user.findFirst({
+		/* const data = await prisma.user.findFirst({
 			select: {
 				conversations: {
 					select: {
@@ -23,9 +23,25 @@ const getConversations = async () => {
 			where: {
 				email: session?.user?.email,
 			},
-		});
+		}); */
 
-		return data?.conversations;
+		const data = await prisma.conversation.findMany({
+			select: {
+				User: {
+					where: {
+						NOT: {
+							email: session?.user?.email,
+						},
+					},
+				},
+				id: true,
+			},
+			where: {
+				User: { some: { email: session?.user?.email } },
+			},
+		});
+		console.log(data);
+		return data;
 	} catch (error) {
 		console.log(error);
 		return null;
