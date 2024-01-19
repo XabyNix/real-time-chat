@@ -1,9 +1,6 @@
 import React, { ReactNode } from "react";
 import Image from "next/image";
 import { User } from "@prisma/client";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-import Login from "./Login";
 
 const Users = async ({ items, children }: { items: User[]; children: ReactNode }) => {
 	return (
