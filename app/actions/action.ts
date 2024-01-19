@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import bcrypt from "bcrypt";
 import { pusherServer } from "@/lib/pusher";
+import { RegisterFormData } from "@/lib/zod";
 
 export const sendMessage = async (formData: FormData, id: string) => {
 	"use server";
@@ -23,11 +24,9 @@ export const sendMessage = async (formData: FormData, id: string) => {
 	pusherServer.trigger(id, "message", data);
 };
 
-export const registerUser = async (formData: FormData) => {
+export const registerUser = async (formData: RegisterFormData) => {
 	"use server";
-	const name = formData.get("name") as string;
-	const email = formData.get("email") as string;
-	const password = formData.get("password") as string;
+	const { email, name, password } = formData;
 
 	if (!name || !email || !password) {
 		return { error: "Missing fields" };

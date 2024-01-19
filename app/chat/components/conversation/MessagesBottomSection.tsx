@@ -16,7 +16,7 @@ const MessagesBottomSection = ({ conversationId }: { conversationId: string }) =
 		<form ref={formRef} action={actionHandler} className="">
 			<div className="flex items-center bg-white p-3">
 				<Input placeholder="Scrivi il tuo messaggio qui..." name="message" radius="sm" />
-				<Button type="submit" radius="full" className="ml-2 min-w-max bg-red-900">
+				<Button isIconOnly type="submit" radius="full" className="ml-2 min-w-max bg-red-900">
 					<PaperPlaneIcon width={30} height={30} color="white" />
 				</Button>
 			</div>
