@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 import React, { ReactNode } from "react";
 import SignOutButton from "./SignOutButton";
 import { useSession } from "next-auth/react";
-import AddConversationModal from "./contacts/addConversationModal";
-import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import AddConversationModal from "../../../components/contacts/addConversationModal";
 
 const Sidebar = ({ children }: { children: ReactNode }) => {
 	const pathname = usePathname();

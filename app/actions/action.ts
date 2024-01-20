@@ -25,7 +25,6 @@ export const sendMessage = async (formData: FormData, id: string) => {
 };
 
 export const registerUser = async (formData: RegisterFormData) => {
-	"use server";
 	const { email, name, password } = formData;
 
 	if (!name || !email || !password) {

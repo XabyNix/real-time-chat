@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
-import { Button, Input } from "@nextui-org/react";
+import { Button } from "@nextui-org/button";
+import { Input } from "@nextui-org/input";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -55,11 +56,11 @@ const Form = () => {
 					label="Password"
 				/>
 
-				<Link href="/login" className="self-end mt-10">
-					<Button variant="light" size="md">
+				<Button variant="light" size="md">
+					<Link prefetch={false} href="/login" className="self-end mt-10">
 						Sei già registrato?
-					</Button>
-				</Link>
+					</Link>
+				</Button>
 				<Button
 					radius="sm"
 					className="bg-teal-500 text-white font-bold"

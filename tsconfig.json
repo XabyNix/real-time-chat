@@ -27,7 +27,7 @@
 		"**/*.ts",
 		"**/*.tsx",
 		".next/types/**/*.ts",
-		"app/chat/components/conversation/MessagesBottomSection"
+		"components/conversation/MessagesBottomSection"
 	],
 	"exclude": ["node_modules"]
 }

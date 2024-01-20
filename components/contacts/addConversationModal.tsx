@@ -1,23 +1,24 @@
 "use client";
 
+import Image from "next/image";
+import { cn } from "@/lib/utils";
+import { User } from "@prisma/client";
+import { IoIosAdd } from "react-icons/io";
+import getUsers from "@/app/actions/getUsers";
+import React, { useEffect, useState } from "react";
+
 import {
 	Modal,
-	Button,
 	ModalContent,
 	ModalBody,
 	useDisclosure,
 	ModalHeader,
 	ModalFooter,
-	Input,
-	RadioGroup,
-	Radio,
-	cn,
-} from "@nextui-org/react";
-import { User } from "@prisma/client";
-import React, { useEffect, useState } from "react";
-import { IoIosAdd } from "react-icons/io";
-import Image from "next/image";
-import getUsers from "@/app/actions/getUsers";
+} from "@nextui-org/modal";
+import { Input } from "@nextui-org/input";
+import { Button } from "@nextui-org/button";
+import { Radio, RadioGroup } from "@nextui-org/radio";
+import createConversation from "@/app/actions/createConversation";
 
 const AddConversationModal = () => {
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -33,12 +34,14 @@ const AddConversationModal = () => {
 	}, []);
 
 	const clickHandler = async () => {
-		const conversation = await fetch("/api/create-conversation", {
+		/* const conversation = await fetch("/api/create-conversation", {
 			body: JSON.stringify({ email: selectedUserEmail }),
 			method: "POST",
 			cache: "no-cache",
-		});
-		if (!conversation.ok) console.log("Qualcosa è andato storto nell'aggiunta del contatto");
+		}); */
+		const conversation = await createConversation(selectedUserEmail);
+
+		if (!conversation) console.log("Qualcosa è andato storto nell'aggiunta del contatto");
 		onOpenChange();
 	};
 

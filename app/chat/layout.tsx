@@ -1,6 +1,5 @@
 import Sidebar from "./components/Sidebar";
-import { getServerSession } from "next-auth";
-import Contact from "./components/contacts/Contact";
+import Contact from "../../components/contacts/Contact";
 import getConversations from "../actions/getConversations";
 
 const layout = async ({ children }: { children: React.ReactNode }) => {

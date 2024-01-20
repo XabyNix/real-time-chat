@@ -6,12 +6,15 @@ import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { Input, Button } from "@nextui-org/react";
+import { Button } from "@nextui-org/button";
 import { LoginFormData, LoginSchema } from "@/lib/zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import dynamic from "next/dynamic";
+
+import { Input } from "@nextui-org/input";
 
 const Form = () => {
-	const onSubmit = (formData: LoginFormData) => {
+	const onSubmit = async (formData: LoginFormData) => {
 		signIn("credentials", {
 			...formData,
 			callbackUrl: "/chat",
@@ -48,7 +51,9 @@ const Form = () => {
 				/>
 
 				<Button variant="light" size="md" className="self-end mt-10">
-					<Link href="/register">Non sei ancora registrato?</Link>
+					<Link prefetch={false} href="/register">
+						Non sei ancora registrato?
+					</Link>
 				</Button>
 
 				<Button
