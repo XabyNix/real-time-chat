@@ -6,6 +6,8 @@ import { authOptions } from "@/lib/auth";
 import bcrypt from "bcrypt";
 import { pusherServer } from "@/lib/pusher";
 import { RegisterFormData } from "@/lib/zod";
+import { redirect } from "next/navigation";
+import { Prisma } from "@prisma/client";
 
 export const sendMessage = async (formData: FormData, id: string) => {
 	"use server";
@@ -28,13 +30,13 @@ export const registerUser = async (formData: RegisterFormData) => {
 	const { email, name, password } = formData;
 
 	if (!name || !email || !password) {
-		return { error: "Missing fields" };
+		return { code: 400, message: "Missing fields" };
 	}
 
 	const hashedPassword = await bcrypt.hash(password, 12);
 
 	try {
-		const data = await prisma.user.create({
+		await prisma.user.create({
 			data: {
 				name: name,
 				email: email,
@@ -42,6 +44,10 @@ export const registerUser = async (formData: RegisterFormData) => {
 			},
 		});
 	} catch (error: any) {
-		return { error: error.message as string };
+		if (error instanceof Prisma.PrismaClientKnownRequestError)
+			return { code: error.code, message: "Email già registrata" };
+		console.log(error);
+		return { code: error.code, message: error.message };
 	}
+	redirect("/login");
 };

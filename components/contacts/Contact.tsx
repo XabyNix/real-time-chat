@@ -5,7 +5,7 @@ import { User } from "@prisma/client";
 
 const Contact = ({ id, user }: { id: string; user: User }) => {
 	return (
-		<Link href={`/chat/conversation/${id}`}>
+		<Link href={`/chat/${id}`}>
 			<div className="flex items-center lg:hover:bg-slate-100 gap-2 transition-all">
 				<Image
 					className="aspect-square rounded-full p-1"

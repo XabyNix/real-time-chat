@@ -34,11 +34,6 @@ const AddConversationModal = () => {
 	}, []);
 
 	const clickHandler = async () => {
-		/* const conversation = await fetch("/api/create-conversation", {
-			body: JSON.stringify({ email: selectedUserEmail }),
-			method: "POST",
-			cache: "no-cache",
-		}); */
 		const conversation = await createConversation(selectedUserEmail);
 
 		if (!conversation) console.log("Qualcosa è andato storto nell'aggiunta del contatto");

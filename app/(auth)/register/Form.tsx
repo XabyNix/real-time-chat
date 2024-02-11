@@ -12,13 +12,15 @@ const Form = () => {
 	const {
 		register,
 		handleSubmit,
+		setError,
 		formState: { errors },
 	} = useForm<RegisterFormData>({ resolver: zodResolver(RegisterSchema) });
 
 	const actionHandler = async (data: RegisterFormData) => {
 		const register = await registerUser(data);
-		if (register?.error) {
-			console.error(register.error);
+		if (register) {
+			register.code === "P2002" && setError("email", { type: "custom", message: register.message });
+			console.error(register);
 		}
 	};
 

@@ -11,7 +11,7 @@ import AddConversationModal from "../../../components/contacts/addConversationMo
 const Sidebar = ({ children }: { children: ReactNode }) => {
 	const pathname = usePathname();
 	const session = useSession();
-	const regex = /^.*\/conversation\/\w*$/g;
+	const regex = /^.*\/chat\/\w*$/g;
 
 	return (
 		<div
