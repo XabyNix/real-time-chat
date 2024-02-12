@@ -58,8 +58,8 @@ const Form = () => {
 					label="Password"
 				/>
 
-				<Button variant="light" size="md">
-					<Link prefetch={false} href="/login" className="self-end mt-10">
+				<Button variant="light" size="md" className="self-end mt-10">
+					<Link prefetch={false} href="/login">
 						Sei già registrato?
 					</Link>
 				</Button>

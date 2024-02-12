@@ -7,11 +7,9 @@ import { useForm } from "react-hook-form";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Button } from "@nextui-org/button";
+import { Input } from "@nextui-org/input";
 import { LoginFormData, LoginSchema } from "@/lib/zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import dynamic from "next/dynamic";
-
-import { Input } from "@nextui-org/input";
 
 const Form = () => {
 	const onSubmit = async (formData: LoginFormData) => {
@@ -35,17 +33,19 @@ const Form = () => {
 
 				<Input
 					{...register("email")}
+					type="email"
+					label="Email"
 					isInvalid={!!errors.email}
 					errorMessage={errors.email?.message}
-					label="Email"
 					variant="bordered"
 					radius="sm"
 				/>
 				<Input
 					{...register("password")}
+					type="password"
+					label="Password"
 					isInvalid={!!errors.password}
 					errorMessage={errors.password?.message}
-					label="Password"
 					variant="bordered"
 					radius="sm"
 				/>

@@ -50,7 +50,7 @@ const AddConversationModal = () => {
 				<IoIosAdd />
 				<span className="font-medium">Crea conversazione</span>
 			</Button>
-			<Modal isOpen={isOpen} onOpenChange={onOpenChange} size="2xl" backdrop="blur" radius="none">
+			<Modal isOpen={isOpen} onOpenChange={onOpenChange} size="3xl" backdrop="blur" radius="none">
 				<ModalContent>
 					<ModalHeader>Crea nuova conversazione</ModalHeader>
 					<ModalBody>
@@ -59,7 +59,7 @@ const AddConversationModal = () => {
 							value={selectedUserEmail}
 							onValueChange={setSelectedUserEmail}
 							classNames={{
-								wrapper: cn("grid grid-cols-1 sm:grid-cols-2 overflow-y-scroll"),
+								wrapper: cn("grid grid-cols-1 max-h-[60vh] sm:grid-cols-2 overflow-y-scroll"),
 							}}
 						>
 							{users &&

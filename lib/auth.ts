@@ -12,10 +12,12 @@ export const authOptions: AuthOptions = {
 		GitHubProvider({
 			clientId: process.env.GITHUB_CLIENT_ID as string,
 			clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+			allowDangerousEmailAccountLinking: true,
 		}),
 		GoogleProvider({
 			clientId: process.env.GOOGLE_CLIENT_ID as string,
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+			allowDangerousEmailAccountLinking: true,
 		}),
 		CredentialsProvider({
 			name: "Credentials",
@@ -34,17 +36,14 @@ export const authOptions: AuthOptions = {
 
 				if (!user) return null;
 
-				const isValid = user.password && (await compare(credentials.password, user.password));
-				console.log(isValid);
+				//const isValid = user.password && (await compare(credentials.password, user.password));
+				const isValid = credentials.password === user.password;
+				console.log("omg", isValid);
 				return isValid ? user : null;
 			},
 		}),
 	],
 
-	pages: {
-		signIn: "/login",
-		newUser: "/register",
-	},
 	session: { strategy: "jwt" },
 	debug: true,
 	secret: process.env.NEXTAUTH_SECRET,

@@ -2,6 +2,7 @@
 import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/db";
 import { getServerSession } from "next-auth/next";
+import { revalidatePath } from "next/cache";
 
 const createConversation = async (email: string) => {
 	const session = await getServerSession(authOptions);
@@ -21,6 +22,7 @@ const createConversation = async (email: string) => {
 				},
 			},
 		});
+		revalidatePath("/(site)/chat/", "layout");
 		return conversation;
 	} catch (error: any) {
 		console.log(error.message);
